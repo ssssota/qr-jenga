@@ -2,6 +2,7 @@ import type { QrCodeJengaEventMap, QrCodeJengaEvents, QrCodeJengaInterface } fro
 import qrcode from 'qrcode';
 import EventEmitter from 'events';
 import jsQR from 'jsqr';
+import { createQrCodeGraphics } from './graphics';
 
 interface Mat {
 	size: number;
@@ -9,7 +10,6 @@ interface Mat {
 }
 
 class QrCodeJenga extends EventEmitter implements QrCodeJengaInterface {
-	private static readonly imageScale = 2;
 	private matrix: boolean[][];
 	private _removed = 0;
 	get text() {
@@ -58,24 +58,25 @@ class QrCodeJenga extends EventEmitter implements QrCodeJengaInterface {
 	}
 
 	private validateQrCode() {
-		const detected = jsQR(
-			this.toImageBuffer(),
-			this.size * QrCodeJenga.imageScale,
-			this.size * QrCodeJenga.imageScale
-		);
+		const { data, width, height } = this.toImageData();
+		const detected = jsQR(data, width, height);
 		return detected?.data === this.text;
 	}
 
-	private toImageBuffer() {
-		const arr = this.matrix.flatMap((line) => {
-			const l = line
-				.map<[number, number, number, number]>((block) =>
-					block ? [0x00, 0x00, 0x00, 0xff] : [0xff, 0xff, 0xff, 0xff]
-				)
-				.flatMap((block) => [...Array(QrCodeJenga.imageScale)].flatMap(() => [...block]));
-			return [...Array(QrCodeJenga.imageScale)].flatMap(() => [...l]);
-		});
-		return new Uint8ClampedArray(arr);
+	private toImageData() {
+		const blockSize = 1;
+		const canvasSize = this.size * blockSize * 5;
+		const qrSize = this.size * blockSize;
+		const margin = Math.floor((canvasSize - qrSize) / 2);
+		console.log({ blockSize, canvasSize, qrSize, margin });
+
+		const g = createQrCodeGraphics(canvasSize);
+		for (let x = 0; x < this.size; x++)
+			for (let y = 0; y < this.size; y++)
+				if (this.get(x, y))
+					g.rect(margin + x * blockSize, margin + y * blockSize, blockSize, blockSize);
+
+		return g.toImageData();
 	}
 
 	private dispatchEvent<T extends QrCodeJengaEvents>(event: T, details: QrCodeJengaEventMap[T]) {
