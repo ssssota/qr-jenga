@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { base } from '$app/paths';
+
 	import QrJenga from '$lib/QrJenga.svelte';
 	import 'water.css/out/light.css';
 	let text = '';
@@ -7,22 +9,32 @@
 	const createRecordText = (removed: number) => `
     ₍₍⁽⁽🔳₎₎⁾⁾
 
-見て！QRコードが踊っているよ
+見て！QRが踊っているよ
 かわいいね
 
         🔳
 
-みんながQRコードの黒い部分を消してしまったので、QRコードは踊るのをやめてしまいました
+みんながQRの黒い部分を消してしまったので、QRは踊るのをやめてしまいました
 お前のせいです
 あ〜あ (記録:${removed}個)`;
 </script>
+
+<svelte:head>
+	<title>QR Jenga</title>
+	<link rel="icon" href="{base}/favicon.png" />
+	<meta property="og:title" content="QRジェンガ" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://ssssota.github.io/qr-jenga/" />
+	<meta property="og:image" content="https://ssssota.github.io/qr-jenga/favicon.png" />
+	<meta property="og:site_name" content="QRジェンガ" />
+</svelte:head>
 
 <header>
 	<h1>QRcode Jenga</h1>
 </header>
 <main>
 	<p>
-		<input type="text" bind:value={text} placeholder="QRcode text (random)" />
+		<input type="text" bind:value={text} placeholder="QR text (random)" />
 	</p>
 	<p>
 		<label>
