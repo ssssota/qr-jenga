@@ -20,11 +20,13 @@ specifiers:
   svelte-preprocess: ^4.9.4
   tslib: ^2.3.1
   typescript: ^4.4.3
+  water.css: ^2.1.1
 
 dependencies:
   events: 3.3.0
   jsqr: 1.4.0
   qrcode: 1.5.0
+  water.css: 2.1.1
 
 devDependencies:
   '@sveltejs/adapter-static': 1.0.0-next.22
@@ -1735,6 +1737,10 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /water.css/2.1.1:
+    resolution: {integrity: sha512-gkO5byC+pZ7ndEV18hs/RmxKoDtEZXx06tZU4ocI3IBdv4xV64tlhjIFbDjurysRnNkiy2oQTr8PakRyzZWPJw==}
+    dev: false
 
   /which-module/2.0.0:
     resolution: {integrity: sha1-2e8H3Od7mQK4o6j6SzHD4/fm6Ho=}
