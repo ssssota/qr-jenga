@@ -1,4 +1,4 @@
-import type { QrCodeJengaEvent, QrCodeJengaEvents, QrCodeJengaInterface } from './interface';
+import type { QrCodeJengaEventMap, QrCodeJengaEvents, QrCodeJengaInterface } from './interface';
 import qrcode from 'qrcode';
 import EventEmitter from 'events';
 import jsQR from 'jsqr';
@@ -33,7 +33,7 @@ class QrCodeJenga extends EventEmitter implements QrCodeJengaInterface {
 
 	addEventListener<T extends QrCodeJengaEvents>(
 		eventName: T,
-		handler: (e: QrCodeJengaEvent<T>) => unknown
+		handler: (e: QrCodeJengaEventMap[T]) => unknown
 	): void {
 		super.on(eventName, handler);
 	}
@@ -48,8 +48,9 @@ class QrCodeJenga extends EventEmitter implements QrCodeJengaInterface {
 		if (!this.get(x, y)) throw new Error('Not able to remove black area');
 		this._removed++;
 		this.matrix[y][x] = false;
-		if (!this.validateQrCode()) this.emit('collapse');
-		return this;
+		const isCollapsed = !this.validateQrCode();
+		if (isCollapsed) this.dispatchEvent('collapse', { removed: this.removed });
+		return !isCollapsed;
 	}
 
 	private rangeCheck(index: number) {
@@ -75,6 +76,10 @@ class QrCodeJenga extends EventEmitter implements QrCodeJengaInterface {
 			return [...Array(QrCodeJenga.imageScale)].flatMap(() => [...l]);
 		});
 		return new Uint8ClampedArray(arr);
+	}
+
+	private dispatchEvent<T extends QrCodeJengaEvents>(event: T, details: QrCodeJengaEventMap[T]) {
+		this.emit(event, details);
 	}
 }
 

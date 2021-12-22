@@ -2,7 +2,7 @@
 	export type EventMap = {
 		reset: never;
 		removeblock: never;
-		collapse: never;
+		collapse: { removed: number };
 	};
 </script>
 
@@ -20,7 +20,6 @@
 	$: {
 		qrJenga = createQrCodeJenga(text);
 		removed = 0;
-		qrJenga.addEventListener('collapse', () => dispatch('collapse'));
 		dispatch('reset');
 	}
 </script>
@@ -43,9 +42,10 @@
 							width={blockSize}
 							height={blockSize}
 							on:click={() => {
-								qrJenga.remove(x, y);
-								removed++;
+								const success = qrJenga.remove(x, y);
 								dispatch('removeblock');
+								if (!success) dispatch('collapse', { removed });
+								removed++;
 							}}
 						/>
 					{/if}
