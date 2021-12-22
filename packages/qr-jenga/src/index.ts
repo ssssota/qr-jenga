@@ -89,7 +89,6 @@ class QrJenga implements QrJengaInterface {
 		const canvasSize = this.size * blockSize * 5;
 		const qrSize = this.size * blockSize;
 		const margin = Math.floor((canvasSize - qrSize) / 2);
-		console.log({ blockSize, canvasSize, qrSize, margin });
 
 		const g = createQrGraphics(canvasSize);
 		for (let x = 0; x < this.size; x++)
