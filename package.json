@@ -1,6 +1,7 @@
 {
 	"name": "qr-jenga",
 	"version": "0.0.1",
+	"private": true,
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
@@ -14,8 +15,6 @@
 	"devDependencies": {
 		"@sveltejs/adapter-static": "next",
 		"@sveltejs/kit": "next",
-		"@types/events": "^3.0.0",
-		"@types/qrcode": "^1.4.2",
 		"@typescript-eslint/eslint-plugin": "^4.31.1",
 		"@typescript-eslint/parser": "^4.31.1",
 		"eslint": "^7.32.0",
@@ -32,9 +31,7 @@
 	"type": "module",
 	"packageManager": "pnpm@6.24.2",
 	"dependencies": {
-		"events": "^3.3.0",
-		"jsqr": "^1.4.0",
-		"qrcode": "^1.5.0",
-		"water.css": "^2.1.1"
+		"water.css": "^2.1.1",
+		"qr-jenga": "file:packages/qr-jenga"
 	}
 }

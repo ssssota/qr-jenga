@@ -7,14 +7,14 @@
 </script>
 
 <script lang="ts">
-	import { blur } from 'svelte/transition';
-	import { createQrJenga } from '$lib/qr-jenga';
+	import type { QrJengaInterface } from 'qr-jenga';
+	import { createQrJenga } from 'qr-jenga';
 	import { createEventDispatcher } from 'svelte';
-	import type { QrJengaInterface } from './qr-jenga/interface';
+	import { blur } from 'svelte/transition';
 	export let text = 'default';
-	export let blockSize = 100;
 	export let autoJudge = true;
 	export let color = 'black';
+	const blockSize = 100;
 	const dispatch = createEventDispatcher<EventMap>();
 
 	let removed = 0;
