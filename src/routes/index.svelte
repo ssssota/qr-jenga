@@ -1,5 +1,5 @@
 <script lang="ts">
-	import QrCodeJenga from '$lib/QrCodeJenga.svelte';
+	import QrJenga from '$lib/QrJenga.svelte';
 	import 'water.css/out/light.css';
 	let text = '';
 	let autoJudge = true;
@@ -30,7 +30,7 @@
 			Auto judge (自分のスマホで判定する場合はチェックを外してください)
 		</label>
 	</p>
-	<QrCodeJenga
+	<QrJenga
 		{text}
 		{autoJudge}
 		style="max-width: 90vmin; max-height: 90vmin; margin: 0 auto;"

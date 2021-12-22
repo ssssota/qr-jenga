@@ -13,7 +13,7 @@ const config = {
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',
 		paths: {
-			base: '/qrcode-jenga'
+			base: '/qr-jenga'
 		}
 	}
 };

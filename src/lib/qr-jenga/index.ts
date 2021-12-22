@@ -1,4 +1,4 @@
-import type { QrCodeJengaEventMap, QrCodeJengaEvents, QrCodeJengaInterface } from './interface';
+import type { QrJengaEventMap, QrJengaEvents, QrJengaInterface } from './interface';
 import qrcode from 'qrcode';
 import EventEmitter from 'events';
 import jsQR from 'jsqr';
@@ -9,7 +9,7 @@ interface Mat {
 	get(x: number, y: number): 0 | 1;
 }
 
-class QrCodeJenga extends EventEmitter implements QrCodeJengaInterface {
+class QrJenga extends EventEmitter implements QrJengaInterface {
 	private matrix: boolean[][];
 	private _removed = 0;
 	get text() {
@@ -31,9 +31,9 @@ class QrCodeJenga extends EventEmitter implements QrCodeJengaInterface {
 		);
 	}
 
-	addEventListener<T extends QrCodeJengaEvents>(
+	addEventListener<T extends QrJengaEvents>(
 		eventName: T,
-		handler: (e: QrCodeJengaEventMap[T]) => unknown
+		handler: (e: QrJengaEventMap[T]) => unknown
 	): void {
 		super.on(eventName, handler);
 	}
@@ -79,9 +79,9 @@ class QrCodeJenga extends EventEmitter implements QrCodeJengaInterface {
 		return g.toImageData();
 	}
 
-	private dispatchEvent<T extends QrCodeJengaEvents>(event: T, details: QrCodeJengaEventMap[T]) {
+	private dispatchEvent<T extends QrJengaEvents>(event: T, details: QrJengaEventMap[T]) {
 		this.emit(event, details);
 	}
 }
 
-export const createQrCodeJenga = (text: string): QrCodeJengaInterface => new QrCodeJenga(text);
+export const createQrJenga = (text: string): QrJengaInterface => new QrJenga(text);

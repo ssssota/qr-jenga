@@ -8,9 +8,9 @@
 
 <script lang="ts">
 	import { blur } from 'svelte/transition';
-	import { createQrCodeJenga } from '$lib/qrcode_jenga';
+	import { createQrJenga } from '$lib/qr-jenga';
 	import { createEventDispatcher } from 'svelte';
-	import type { QrCodeJengaInterface } from './qrcode_jenga/interface';
+	import type { QrJengaInterface } from './qr-jenga/interface';
 	export let text = 'default';
 	export let blockSize = 100;
 	export let autoJudge = true;
@@ -18,9 +18,9 @@
 	const dispatch = createEventDispatcher<EventMap>();
 
 	let removed = 0;
-	let qrJenga: QrCodeJengaInterface;
+	let qrJenga: QrJengaInterface;
 	$: {
-		qrJenga = createQrCodeJenga(text);
+		qrJenga = createQrJenga(text);
 		removed = 0;
 		dispatch('reset');
 	}
