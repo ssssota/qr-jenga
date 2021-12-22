@@ -1,4 +1,4 @@
-name: GitHub Pages
+name: Checks
 
 on:
   workflow_dispatch:
