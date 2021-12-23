@@ -30,7 +30,7 @@
 </svelte:head>
 
 <header>
-	<h1>QRcode Jenga</h1>
+	<h1>QR Jenga</h1>
 </header>
 <main>
 	<p>
